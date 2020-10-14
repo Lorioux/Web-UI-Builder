@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"-->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- FontAwesome ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bootstrap ICONS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        th>i.fa {
+            font-size: 14px;
+            margin: 4px;
+            padding: 4px;
+        }
+        .style-class-name {
+            border : 1px solid lightgray;
+            border-radius: 4px;
+            padding: 4px;
+            width: fit-content;
+            visibility: hidden;
+        }
+    </style>
+
+    <!-- JQuery UI JS -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+  <body>
+    <div class="container properties">
+        <span class="header category"></span>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Style Classes<i class="fa fa-plus border" title="Add style classes"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="class-names-placeholder"><p class="style-class-name" editable="true">class-name</p> </td>
+                </tr>
+            </tbody>
+        </table>  
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Class family and values:</th>                
+                </tr>
+                
+            </thead>
+            <tbody>
+                <td id="class-name-values">
+                    <select id="class-families" name="Classes" multiple size="6">
+                        <optgroup Label="Container" >
+                            <option onmouseover="alert(`Over me`);">w3-container</option>
+                        </optgroup>
+                        <optgroup Label="Table" >
+                            <option id="add-class-names" title="Container class for an HTML table" data-placement="left">w3-table</option>
+                            <option title="Class to strip table" draggable="true">w3-striped</option>
+                        </optgroup>
+                    </select>
+                </td>
+            </tbody>
+        </table>
+        <label for="tag_combo">Tag</label>
+        <input type="text" id="tag_combo"
+            role="combobox" aria-autocomplete="list"
+            aria-haspopup="listbox" aria-expanded="true"
+            aria-controls="popup_listbox" aria-activedescendant="selected_option">
+        <ul role="listbox" id="popup_listbox">
+            <li role="option">Zebra</li>
+            <li role="option" id="selected_option">Zoom</li>
+        </ul>
+    </div>
+    <script>
+        $(
+            function(){
+                
+
+                // find class names list and 
+                $( "#class-families optgroup option").on('select', function(e){
+                    // find class name placeholder
+                    val = this.text;
+                    $( "td.class-names-placeholder" ).text(`I'm classe names placeholder ${val} `);
+                });
+                
+            }
+
+         );
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+  </body>
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, shrink-to-fit=no">
+
+    <!-- JQuery CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- W3Css CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <!-- FontAwesome ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap ICONS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Bootstrap ICONS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+    <!-- JQuery UI JS -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <!--ui-template modules-->
+    <script src="./modules/ui-template-v1.0.js" type="module"></script>
+    
+
+    <style>
+        pre>i.fa {
+            font-size: 14px;
+            margin: 4px;
+            padding: 4px;
+        }
+        button.fa {
+            font-size: 16px;
+            margin: 4px;
+            padding: 4px;
+            border: 1px solid lightgray;
+        }
+        
+        div#block-finder {
+            margin-bottom: 4px;
+        }
+        pre.block_finder {
+            width: fit-content;
+        }
+        
+        /** For tabs */
+        div.flex-container {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1fr;
+            background-color: lightgrey;
+            padding-top: 8px;
+        }
+        div > span {
+            width: fit-content;
+            
+            border-radius: 4px;
+            padding: 2px;
+            margin-left: 2px;
+        }
+        div.flex-container >span>i[class *='fa'] {
+           padding: 2px;
+           margin-left: 4px;
+           /* transform: rotate(90deg); */
+        } 
+    </style>
+  </head>
+  <body>
+    <header class="w3-header w3-margin-bottom w3-border w3-light-gray">
+        <div class="w3-panel">
+            <span > Web UI Builder </span>
+        </div>
+        
+        <nav class="nav nav-tabs nav-stacked w3-padding">
+            <button class="nav-link border fa fa-gears w3-hover-gray"> Settings</button>
+            <button class="nav-link border fa fa-file-code-o w3-hover-gray"> Manage templates</button>
+            <button class="nav-link border fa fa-share w3-hover-gray"> Publish</button>
+        </nav>
+        <div class="w3-content w3-large">
+            <script class="w3-large">
+                console.log("This is small screen.");
+            </script>
+        </div>
+    </header>
+    <main class="template">
+        <!-- <div id="tabs">  -->
+            <!-- style="display: flex ;flex: auto; flex-direction: column;" -->
+        <!-- </div> -->
+
+        <div class="w3-border side-bar" style="float: left; width: 28%; height: 95%; overflow-y: auto; resize: horizontal;">
+            
+            <section>
+               <div class="w3-border-bottom w3-border-right flex-container">
+                   <script>
+                       function hide(me){
+                           $( ".side-bar").hide();
+                           var d = document.getElementsByClassName("ui-template")[0];
+                           console.log(d)
+                       };
+                   </script>
+                    
+                    <span class="fa fa-cubes"><p style="font-family: sans-serif; font-size: x-small;">UI Blocks</p></span>
+                    <span class="fa fa-gear"><p style="font-family: sans-serif; font-size: x-small;">Properties</p></span>
+                    <!-- <span>
+                        <i class="fa fa-angle-double-right" aria-hidden="true" id="slide_to_show"></i>
+                    </span> -->
+                    <span>
+                        <i class="fa fa-angle-double-left border" aria-hidden="true" onclick="hide(this);" id="slide_to_hide"></i> 
+                        <i class="fa fa-thumb-tack" aria-hidden="true" style="transform: rotate(20deg);" id="pin"></i> 
+                    </span>
+                </div> 
+            </section>
+            
+            <section>
+                <header style="margin-top: 8px;">
+                    <pre class="w3-large block_finder"><input type="text" placeholder="Find blocks"  id="block-finder"><i class="fa fa-search border" style="z-index: 1;"></i></pre>
+                </header>
+                
+                <div class="w3-content w3-margin-bottom blocks">
+                    <img src="src/icons/input.svg" width="72px" draggable="true" id="for-edittext">
+                    <img src="src/icons/button.svg" width="72px" draggable="true" id="for-button">
+
+                </div>
+            </section>
+            <section class="w3-section">
+                <div class="w3-margin-top properties">
+                    <hr><h4>Properties</h4>
+                    <div>
+                        <span class="header category"><pre>Style Classes<i class="fa fa-plus border w3-margin-left" id="add-class-names"
+                                    data-toggle="popover" title="Add Classes" data-content="Some content inside the popover" data-placement="bottom"></i></pre></span>
+                        <div class="w3-table-responsive w3-stripped w3-col col-md-4">
+                           <p class="style_classes" placeholder="class value" type="text"></p>
+                        </div>  
+                    </div><br>
+                </div>
+            </section>
+                
+        </div>
+        
+        <div id="ui-template" class="w3-container w3-col col-md-10 w3-border draggable" 
+            style="float: right; width: 70%; height: 600px; overflow: auto;resize: horizontal; background-image: url('./src/wuib-template_800px.svg'); background-repeat: no-repeat; ">
+            <!-- <section class="ui-widget-content border" style="width: 100%; height: 100%;">
+                
+                 <form class="w3-margin" draggable="true" id="draggable-form">
+                    
+                    <fieldset>
+                        <label for="test"><p>Draggable</p></label>
+                        <input id="test" class="w3-input" placeholder="Teste"><hr>
+                        <input type="file">
+                        <button id="draggable">Test</button>
+                    </fieldset>
+                    
+                </form>
+                
+            </section> -->
+            
+        </div>
+        </div>
+    </main>
+
+    <template id="settings">
+        <div class="w3-modal">
+
+        </div>
+    </template>
+
+    <template id="templates">
+        <div class="w3-modal">
+
+        </div>
+    </template>
+
+    <template id="publish">
+        <div class="w3-modal">
+
+        </div>
+    </template>
+
+    <script>
+        function open_settings(){
+            var template = $( "template[id=setting]");
+        };
+
+        function canvas(){
+            var cvs = $( "canvas");
+            var canvas = new Canvas();
+
+        };
+    
+    </script>
+    <script>
+        $( "#add-class-names" ).on(
+            'click',
+            function(e){
+                //alert("clicked");
+                $('[data-toggle="popover"]').popover();
+            }
+        )
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--script src="https://code.jquery.com/jquery-3.5.1.min.js"></script-->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script-->
+    <!--script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script-->
+    
+    <!-- TEMP JS
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script-->
+
+  </body>
+</html>

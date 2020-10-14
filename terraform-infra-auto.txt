@@ -1,0 +1,77 @@
+# Create infra provider file [provider.tf]
+    # add code into
+    provider "google" {}
+
+# Run terraform initilizer
+    $ terraform init
+
+
+# Create the mynetwork network [mynetwork.tf] template
+    resource "google_compute_network" "mynetwork" {
+        name = "mynetwork"
+        #RESOURCE properties go here
+        auto_create_subnetworks = "true"
+        
+    }
+
+    # Add a firewall rule to allow HTTP, SSH, RDP and ICMP traffic on mynetwork
+    resource "google_compute_firewall" "mynetwork-allow-http-ssh-rdp-icmp" {
+        name = "mynetwork-allow-http-ssh-rdp-icmp"
+        #RESOURCE properties go here
+        network = google_compute_network.mynetwork.self_link
+        allow {
+            protocol = "tcp"
+            ports    = ["22", "80", "3389"]
+        }
+        allow {
+            protocol = "icmp"
+            }
+    }
+
+    # Add VM instances
+    # Create the mynet-us-vm instance
+    module "mynet-us-vm" {
+        source           = "./instance"
+        instance_name    = "mynet-us-vm"
+        instance_zone    = "us-central1-a"
+        instance_network = google_compute_network.mynetwork.self_link
+    }
+
+    # Create the mynet-eu-vm" instance
+    module "mynet-eu-vm" {
+        source           = "./instance"
+        instance_name    = "mynet-eu-vm"
+        instance_zone    = "europe-west1-d"
+        instance_network = google_compute_network.mynetwork.self_link
+    }
+
+# Create instance folder and [main.tf] file into.
+    # define the input variable to use later
+    variable "instance_name" {}
+    variable "instance_zone" {}
+    variable "instance_type" {
+        default = "n1-standard-1"
+    }
+    variable "instance_network" {}
+
+    # add code
+    resource "google_compute_instance" "vm_instance" { #goog... resource_type
+        name = "${var.instance_name}" "resource_name"
+        #RESOURCE properties go here
+        zone         = "${var.instance_zone}"
+        machine_type = "${var.instance_type}"
+        boot_disk {
+            initialize_params {
+                image = "debian-cloud/debian-9"
+            }
+        }
+
+        network_interface {
+            network = "${var.instance_network}"
+            access_config {
+                # Allocate a one-to-one NAT IP to the instance
+
+            }
+        }
+
+    }
